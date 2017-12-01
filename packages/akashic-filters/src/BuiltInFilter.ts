@@ -68,7 +68,8 @@ export class BuiltInFilter implements Filter {
   }
 
   apply(renderer: g.Renderer): void {
-    // FIXME: CanvasRenderingContext2D.filter に依存している
+    // FIXME: CanvasRenderingContext2D.filter property is experimental technology.
+    // https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/filter
     (renderer as any).context.filter = this.filter;
   }
 }
