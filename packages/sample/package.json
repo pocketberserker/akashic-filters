@@ -3,15 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm run scan:assets",
-    "start": "akashic-sandbox .",
-    "scan:assets": "akashic scan asset"
+    "build": "webpack --progress && npm run scan:assets",
+    "start": "akashic-sandbox ./game",
+    "scan:assets": "cd ./game && akashic scan asset",
+    "bundle": "cd ./game && akashic export html --output ../dist"
   },
   "dependencies": {
     "@pocketberserker/akashic-filters": "^0.1.0"
   },
   "devDependencies": {
     "@akashic/akashic-cli": "1.2.1",
-    "@akashic/akashic-sandbox": "0.13.5"
+    "@akashic/akashic-engine": "2.0.2",
+    "@akashic/akashic-sandbox": "0.13.5",
+    "@types/node": "8.0.53",
+    "ts-loader": "3.1.1",
+    "typescript": "2.6.2",
+    "uglify-save-license": "0.4.1",
+    "uglifyjs-webpack-plugin": "1.1.0",
+    "webpack": "3.8.1"
   }
 }

@@ -1,5 +1,5 @@
 "use strict";
-var filters = require("@pocketberserker/akashic-filters");
+import * as filters from "@pocketberserker/akashic-filters";
 
 module.exports = function() {
 
@@ -68,7 +68,7 @@ module.exports = function() {
     ];
     scene.append(snow);
 
-    scene.update.add(function () {
+    scene.update.add(() => {
       snowflake.update();
       snow.modified();
     });
