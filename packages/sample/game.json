@@ -14,6 +14,7 @@
 		"node_modules/@pocketberserker/akashic-filters/lib/Filter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/BuiltInFilter.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/SnowflakeFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/index.js",
 		"node_modules/@pocketberserker/akashic-filters/package.json"
 	],

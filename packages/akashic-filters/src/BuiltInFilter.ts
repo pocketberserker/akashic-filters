@@ -70,6 +70,11 @@ export class BuiltInFilter implements Filter {
   apply(renderer: g.Renderer): void {
     // FIXME: CanvasRenderingContext2D.filter property is experimental technology.
     // https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/filter
-    (renderer as any).context.filter = this.filter;
+    const context = (renderer as any).context;
+    if(context.filter && context.filter !== "none") {
+      context.filter = `${context.filter} ${this.filter}`;
+    } else {
+      context.filter = this.filter;
+    }
   }
 }

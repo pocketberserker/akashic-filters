@@ -6,16 +6,22 @@ module.exports = function() {
   const scene = new g.Scene({game: g.game});
   scene.loaded.add(() => {
 
-    const container = new filters.FilterContainer({
+    const black = new g.FilledRect({
+      scene: scene,
+      cssColor: "#000000",
+      width: g.game.width,
+      height: g.game.height
+    });
+    scene.append(black);
+
+    const builtin = new filters.FilterContainer({
       scene
     });
-    container.filters = [
+    builtin.filters = [
       new filters.BuiltInFilterBuilder()
         .blur("5px")
         .build()
     ];
-    scene.append(container);
-
     const red = new g.FilledRect({
       scene: scene,
       cssColor: "#ff0000",
@@ -24,7 +30,8 @@ module.exports = function() {
       width: 32,
       height: 32
     });
-    container.append(red);
+    builtin.append(red);
+    scene.append(builtin);
 
     const blue = new g.FilledRect({
       scene: scene,
@@ -35,6 +42,36 @@ module.exports = function() {
       height: 32
     });
     scene.append(blue);
+
+    const snow = new filters.FilterContainer({
+      scene
+    });
+    const snowflake = new filters.SnowflakeFilter({
+      radius: {
+        min: 0.5,
+        max: 3.0
+      },
+      wind: {
+        min: -0.5,
+        max: 1.0
+      },
+      speed: {
+        min: 1.0,
+        max: 3.0
+      },
+      width: g.game.width,
+      height: g.game.height,
+      count: 200
+    });
+    snow.filters = [
+      snowflake
+    ];
+    scene.append(snow);
+
+    scene.update.add(function () {
+      snowflake.update();
+      snow.modified();
+    });
   });
 
   g.game.pushScene(scene);
