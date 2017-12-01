@@ -1,0 +1,26 @@
+{
+  "name": "@pocketberserker/akashic-filters",
+  "version": "0.1.0",
+  "description": "Filter effects for Akashic Engine",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc -p ."
+  },
+  "author": "pocketberserker",
+  "license": "MIT",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "pocketberserker/akashic-filters.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@akashic/akashic-engine": "2.0.2",
+    "@types/node": "8.0.53",
+    "typescript": "2.6.2"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "akashic-filters-sample",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run scan:assets",
+    "start": "akashic-sandbox .",
+    "scan:assets": "akashic scan asset"
+  },
+  "dependencies": {
+    "@pocketberserker/akashic-filters": "^0.1.0"
+  },
+  "devDependencies": {
+    "@akashic/akashic-cli": "1.2.1",
+    "@akashic/akashic-sandbox": "0.13.5"
+  }
+}

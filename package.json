@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "prepare": "lerna bootstrap",
+    "publish": "lerna publish",
+    "build": "lerna run build",
+    "start": "cd packages/sample && npm start"
+  },
+  "author": "pocketberserker",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pocketberserker/alashic-filters.git"
+  },
+  "devDependencies": {
+    "lerna": "2.5.1"
+  }
+}
