@@ -1,10 +1,9 @@
-"use strict";
 import {Filter} from "./Filter";
 
-export class FilterContainer extends g.E {
+export class FilterContainer extends g.Pane {
   private _filters: Filter[];
 
-  constructor(param: g.EParameterObject) {
+  constructor(param: g.PaneParameterObject) {
     super(param);
     this.filters = [];
   }
@@ -26,20 +25,19 @@ export class FilterContainer extends g.E {
       }
     }
 
-    if (this.children) {
-      const children = this.children; // NOTE: Not cloned. Will break if modified while rendering
-      for (let i = 0; i < children.length; ++i) {
-        children[i].render(renderer, camera);
-      }
-    }
+    const shouldRenderChildren = super.renderSelf(renderer, camera);
 
     renderer.restore();
 
-    return false;
+    return shouldRenderChildren;
   }
 
   destroy(): void {
     this._filters = null;
+
+    if (this._renderer) {
+      this._renderer.setShaderProgram(null);
+    }
 
     super.destroy();
   }

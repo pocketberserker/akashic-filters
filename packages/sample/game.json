@@ -10,10 +10,15 @@
 			"global": true
 		}
 	},
+	"renderers": [
+		"webgl"
+	],
 	"environment": {
 		"sandbox-runtime": "2"
 	},
 	"globalScripts": [
+		"node_modules/@pocketberserker/akashic-filters/lib/colormatrix/colorMatrix.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/colormatrix/ColorMatrixFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/index.js"
 	],
