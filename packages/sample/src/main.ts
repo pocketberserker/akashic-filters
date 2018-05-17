@@ -1,7 +1,7 @@
 "use strict";
 import * as filters from "@pocketberserker/akashic-filters";
 
-module.exports = function() {
+module.exports = () => {
 
   const scene = new g.Scene({game: g.game});
   scene.loaded.add(() => {
@@ -14,13 +14,10 @@ module.exports = function() {
     });
     scene.append(black);
 
-    const builtin = new filters.FilterContainer({
+    const container = new filters.FilterContainer({
       scene
     });
-    builtin.filters = [
-      new filters.BuiltInFilterBuilder()
-        .blur("5px")
-        .build()
+    container.filters = [
     ];
     const red = new g.FilledRect({
       scene: scene,
@@ -30,8 +27,8 @@ module.exports = function() {
       width: 32,
       height: 32
     });
-    builtin.append(red);
-    scene.append(builtin);
+    container.append(red);
+    scene.append(container);
 
     const blue = new g.FilledRect({
       scene: scene,
@@ -43,34 +40,7 @@ module.exports = function() {
     });
     scene.append(blue);
 
-    const snow = new filters.FilterContainer({
-      scene
-    });
-    const snowflake = new filters.SnowflakeFilter({
-      radius: {
-        min: 0.5,
-        max: 3.0
-      },
-      wind: {
-        min: -0.5,
-        max: 1.0
-      },
-      speed: {
-        min: 1.0,
-        max: 3.0
-      },
-      width: g.game.width,
-      height: g.game.height,
-      count: 200
-    });
-    snow.filters = [
-      snowflake
-    ];
-    scene.append(snow);
-
     scene.update.add(() => {
-      snowflake.update();
-      snow.modified();
     });
   });
 

@@ -1,0 +1,23 @@
+{
+	"width": 640,
+	"height": 360,
+	"fps": 30,
+	"main": "./script/main.js",
+	"assets": {
+		"main": {
+			"type": "script",
+			"path": "script/main.js",
+			"global": true
+		}
+	},
+	"environment": {
+		"sandbox-runtime": "2"
+	},
+	"globalScripts": [
+		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/index.js"
+	],
+	"moduleMainScripts": {
+		"@pocketberserker/akashic-filters": "node_modules/@pocketberserker/akashic-filters/lib/index.js"
+	}
+}

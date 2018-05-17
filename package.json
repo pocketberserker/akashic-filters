@@ -8,7 +8,7 @@
     "publish": "lerna publish",
     "build": "lerna run build",
     "sample:bundle": "cd packages/sample && npm run bundle",
-    "sample:publish": "gh-pages -d ./packages/sample/dist -m \"Update $(date +%Y-%m-%d:%H:%M:%s)\"",
+    "sample:publish": "gh-pages -d ./dist -m \"Update $(date +%Y-%m-%d:%H:%M:%s)\"",
     "start": "cd packages/sample && npm start"
   },
   "author": "pocketberserker",
@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "gh-pages": "1.1.0",
-    "lerna": "2.5.1"
+    "lerna": "2.11.0"
   }
 }
