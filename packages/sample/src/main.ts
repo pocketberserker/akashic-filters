@@ -2,10 +2,8 @@
 import * as filters from "@pocketberserker/akashic-filters";
 
 module.exports = () => {
-
   const scene = new g.Scene({game: g.game});
   scene.loaded.add(() => {
-
     const black = new g.FilledRect({
       scene: scene,
       cssColor: "#000000",
@@ -17,8 +15,7 @@ module.exports = () => {
     const container = new filters.FilterContainer({
       scene
     });
-    container.filters = [
-    ];
+    container.filters = [];
     const red = new g.FilledRect({
       scene: scene,
       cssColor: "#ff0000",
@@ -40,9 +37,8 @@ module.exports = () => {
     });
     scene.append(blue);
 
-    scene.update.add(() => {
-    });
+    scene.update.add(() => {});
   });
 
   g.game.pushScene(scene);
-}
+};
