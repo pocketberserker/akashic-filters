@@ -78,11 +78,19 @@ export class NoiseFilter implements Filter {
     renderer.setShaderProgram(this.shader);
   }
 
-  set noise(value: number) {
+  set noise(value) {
     this.shader.uniforms.uNoise.value = value;
   }
 
-  set seed(value: number) {
+  get noise() {
+    return this.shader.uniforms.uNoise.value;
+  }
+
+  set seed(value) {
     this.shader.uniforms.uSeed.value = value;
+  }
+
+  get seed() {
+    return this.shader.uniforms.uSeed.value;
   }
 }

@@ -49,8 +49,12 @@ export class ColorMatrixFilter implements Filter {
     renderer.setShaderProgram(shader);
   }
 
-  set alpha(value: number) {
+  set alpha(value) {
     this.uniforms.uAlpha.value = value;
+  }
+
+  get alpha() {
+    return this.uniforms.uAlpha.value;
   }
 
   brightness(b: number, multiply?: boolean) {

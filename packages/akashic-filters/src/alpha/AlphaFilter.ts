@@ -30,7 +30,11 @@ export class AlphaFilter implements Filter {
     renderer.setShaderProgram(this.shader);
   }
 
-  set alpha(value: number) {
+  set alpha(value) {
     this.shader.uniforms.uAlpha.value = value;
+  }
+
+  get alpha() {
+    return this.shader.uniforms.uAlpha.value;
   }
 }
