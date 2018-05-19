@@ -20,7 +20,7 @@
   "dependencies": {},
   "devDependencies": {
     "@akashic/akashic-engine": "2.2.0",
-    "@types/node": "10.1.0",
+    "@types/node": "10.1.2",
     "typescript": "2.8.3"
   }
 }
