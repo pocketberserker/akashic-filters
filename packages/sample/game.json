@@ -22,6 +22,7 @@
 		"node_modules/@pocketberserker/akashic-filters/lib/colormatrix/ColorMatrixFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/noise/NoiseFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/old-film/OldFilmFilter.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/pixelate/PixelateFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/index.js"
 	],
