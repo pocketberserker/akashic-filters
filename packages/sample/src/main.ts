@@ -3,47 +3,85 @@ import * as filters from "@pocketberserker/akashic-filters";
 module.exports = () => {
   const scene = new g.Scene({game: g.game});
   scene.loaded.add(() => {
-    const container = new filters.FilterContainer({
+    const left = new filters.FilterContainer({
       scene,
-      width: g.game.width,
+      width: g.game.width / 2,
       height: g.game.height
     });
     const sepia = new filters.ColorMatrixFilter();
     sepia.sepia();
-    container.filters = [sepia];
-    scene.append(container);
+    left.filters = [sepia];
+    scene.append(left);
 
     const black = new g.FilledRect({
       scene: scene,
-      cssColor: "#000000",
-      width: g.game.width,
+      cssColor: "black",
+      width: g.game.width / 2,
       height: g.game.height
     });
-    container.append(black);
+    left.append(black);
 
     const red = new g.FilledRect({
-      scene: scene,
-      cssColor: "#ff0000",
+      scene,
+      cssColor: "red",
       x: 10,
       y: 10,
       width: 32,
       height: 32
     });
-    container.append(red);
+    left.append(red);
 
     const blue = new g.FilledRect({
-      scene: scene,
-      cssColor: "#0000ff",
+      scene,
+      cssColor: "blue",
       x: 50,
       y: 10,
       width: 32,
       height: 32
     });
-    container.append(blue);
+    left.append(blue);
 
-    scene.update.add(() => {});
+    left.invalidate();
 
-    container.invalidate();
+    const right = new filters.FilterContainer({
+      scene,
+      x: g.game.width / 2,
+      y: 0,
+      width: g.game.width / 2,
+      height: g.game.height
+    });
+    const film = new filters.OldFilmFilter({
+      x: right.x,
+      y: right.y,
+      width: right.width / 2,
+      height: right.height,
+      vignetting: 0.1
+    });
+    right.filters = [film];
+    scene.append(right);
+
+    const white = new g.FilledRect({
+      scene,
+      cssColor: "white",
+      width: right.width,
+      height: right.height
+    });
+    right.append(white);
+
+    const green = new g.FilledRect({
+      scene,
+      cssColor: "green",
+      x: right.width / 2 - 16,
+      y: right.height / 2 - 16,
+      width: 32,
+      height: 32
+    });
+    right.append(green);
+
+    scene.update.add(() => {
+      film.seed = g.game.random.get(0, 100) / 100;
+      right.invalidate();
+    });
   });
 
   g.game.pushScene(scene);
