@@ -29,6 +29,7 @@
 		"node_modules/@pocketberserker/akashic-filters/lib/ascii/AsciiFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/crt/CRTFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/twist/TwistFilter.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/kawase-blur/KawaseBlurFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/Point.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/Filter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",

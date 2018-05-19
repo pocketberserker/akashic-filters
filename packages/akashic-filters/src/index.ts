@@ -12,3 +12,4 @@ export * from "./godray/GodrayFilter";
 export * from "./ascii/AsciiFilter";
 export * from "./crt/CRTFilter";
 export * from "./twist/TwistFilter";
+export * from "./kawase-blur/KawaseBlurFilter";
