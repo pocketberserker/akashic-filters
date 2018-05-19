@@ -6,7 +6,7 @@
     "build": "tsc -p . && npm run scan:assets",
     "start": "akashic-sandbox .",
     "scan:assets": "akashic scan asset",
-    "bundle": "akashic export html --output ../../dist"
+    "bundle": "akashic export html -o ../../dist -M -b"
   },
   "dependencies": {
     "@pocketberserker/akashic-filters": "^0.1.0"
