@@ -6,3 +6,4 @@ export * from "./noise/NoiseFilter";
 export * from "./old-film/OldFilmFilter";
 export * from "./pixelate/PixelateFilter";
 export * from "./emboss/EmbossFilter";
+export * from "./zoom-blur/ZoomBlurFilter";

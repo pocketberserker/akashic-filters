@@ -24,6 +24,7 @@
 		"node_modules/@pocketberserker/akashic-filters/lib/old-film/OldFilmFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/pixelate/PixelateFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/emboss/EmbossFilter.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/zoom-blur/ZoomBlurFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/index.js"
 	],
