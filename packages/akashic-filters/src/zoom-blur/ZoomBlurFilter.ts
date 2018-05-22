@@ -20,7 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi-filters/blob/v2.6.1/filters/zoom-blur/src/ZoomBlurFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
 precision mediump float;
@@ -109,22 +109,18 @@ void main() {
     gl_FragColor = color;
 }`;
 
-export interface ZoomBlurFilterOptions {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface ZoomBlurFilterOptions extends FilterParameterObject {
   strength?: number;
   center?: number[];
   innerRadius?: number;
   radius?: number;
 }
 
-export class ZoomBlurFilter implements Filter {
-  private shader: g.ShaderProgram;
+export class ZoomBlurFilter extends Filter {
   private filterArea: Float32Array;
 
   constructor(options: ZoomBlurFilterOptions) {
+    super(options);
     this.filterArea = new Float32Array(4);
     this.move(options.x, options.y);
     this.resize(options.width, options.height);
@@ -153,10 +149,6 @@ export class ZoomBlurFilter implements Filter {
         }
       }
     });
-  }
-
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
   }
 
   get strength() {
@@ -196,11 +188,13 @@ export class ZoomBlurFilter implements Filter {
   }
 
   move(x: number, y: number) {
+    super.move(x, y);
     this.filterArea[2] = x;
     this.filterArea[3] = y;
   }
 
   resize(width: number, height: number) {
+    super.resize(width, height);
     this.filterArea[0] = width;
     this.filterArea[1] = height;
   }

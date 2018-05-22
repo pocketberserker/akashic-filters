@@ -6,10 +6,18 @@ module.exports = () => {
   scene.loaded.add(() => {
     const left = new filters.FilterContainer({
       scene,
-      width: g.game.width,
+      x: 0,
+      y: 0,
+      width,
       height: g.game.height
     });
-    const sepia = new filters.ColorMatrixFilter();
+    const sepia = new filters.ColorMatrixFilter({
+      scene,
+      x: left.x,
+      y: left.y,
+      width: left.width / 2,
+      height: left.height
+    });
     sepia.sepia();
     left.filters = [sepia];
     scene.append(left);
@@ -50,6 +58,7 @@ module.exports = () => {
       height: g.game.height
     });
     const ray = new filters.GodrayFilter({
+      scene,
       x: center.x,
       y: center.y,
       width: center.width,
@@ -74,6 +83,7 @@ module.exports = () => {
       height: g.game.height
     });
     const film = new filters.OldFilmFilter({
+      scene,
       x: right.x,
       y: right.y,
       width: right.width,

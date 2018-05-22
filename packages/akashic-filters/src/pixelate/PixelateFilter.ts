@@ -20,7 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi-filters/blob/v2.6.1/filters/pixelate/src/PixelateFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
 precision mediump float;
@@ -64,19 +64,15 @@ void main(void)
     gl_FragColor = texture2D(uSampler, coord);
 }`;
 
-export interface PixelateFilterOptions {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface PixelateFilterOptions extends FilterParameterObject {
   size?: number;
 }
 
-export class PixelateFilter implements Filter {
-  private shader: g.ShaderProgram;
+export class PixelateFilter extends Filter {
   private filterArea: Float32Array;
 
   constructor(options: PixelateFilterOptions) {
+    super(options);
     this.filterArea = new Float32Array(4);
     this.move(options.x, options.y);
     this.resize(options.width, options.height);
@@ -95,10 +91,6 @@ export class PixelateFilter implements Filter {
     });
   }
 
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
-  }
-
   get size() {
     return this.shader.uniforms.size.value;
   }
@@ -110,11 +102,13 @@ export class PixelateFilter implements Filter {
   }
 
   move(x: number, y: number) {
+    super.move(x, y);
     this.filterArea[2] = x;
     this.filterArea[3] = y;
   }
 
   resize(width: number, height: number) {
+    super.resize(width, height);
     this.filterArea[0] = width;
     this.filterArea[1] = height;
   }

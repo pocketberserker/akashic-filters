@@ -20,7 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi-filters/blob/v2.6.1/filters/old-film/src/OldFilmFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
 precision mediump float;
@@ -129,11 +129,7 @@ void main()
     gl_FragColor.rgb = color;
 }`;
 
-export interface OldFilmFilterOptions {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface OldFilmFilterOptions extends FilterParameterObject {
   sepia?: number;
   noise?: number;
   noiseSize?: number;
@@ -146,12 +142,12 @@ export interface OldFilmFilterOptions {
   seed?: number;
 }
 
-export class OldFilmFilter implements Filter {
-  private shader: g.ShaderProgram;
+export class OldFilmFilter extends Filter {
   private dimensions: Float32Array;
   private filterArea: Float32Array;
 
   constructor(options: OldFilmFilterOptions) {
+    super(options);
     this.dimensions = new Float32Array(2);
     this.filterArea = new Float32Array(4);
     this.move(options.x, options.y);
@@ -209,10 +205,6 @@ export class OldFilmFilter implements Filter {
         }
       }
     });
-  }
-
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
   }
 
   set sepia(value) {
@@ -296,11 +288,13 @@ export class OldFilmFilter implements Filter {
   }
 
   move(x: number, y: number) {
+    super.move(x, y);
     this.filterArea[2] = x;
     this.filterArea[3] = y;
   }
 
   resize(width: number, height: number) {
+    super.resize(width, height);
     this.dimensions[0] = this.filterArea[0] = width;
     this.dimensions[1] = this.filterArea[1] = height;
   }

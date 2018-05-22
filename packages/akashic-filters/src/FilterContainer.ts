@@ -20,7 +20,8 @@ export class FilterContainer extends g.Pane {
     renderer.save();
 
     if (this._filters) {
-      for (const filter of this._filters) {
+      const filters = this._filters; // NOTE: Not cloned. Will break if modified while rendering
+      for (const filter of filters) {
         filter.apply(renderer);
       }
     }
@@ -33,12 +34,15 @@ export class FilterContainer extends g.Pane {
   }
 
   destroy(): void {
-    this._filters = null;
-
     if (this._renderer) {
       this._renderer.setShaderProgram(null);
     }
-
+    if (this._filters) {
+      for (const filter of this._filters) {
+        filter.destroy();
+      }
+    }
+    this._filters = null;
     super.destroy();
   }
 }

@@ -1,4 +1,4 @@
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
 precision mediump float;
@@ -11,23 +11,22 @@ void main(void)
    gl_FragColor = texture2D(uSampler, vTexCoord) * uAlpha;
 }`;
 
-export class AlphaFilter implements Filter {
-  private shader: g.ShaderProgram;
+export interface AlphaFilterOptions extends FilterParameterObject {
+  alpha: number;
+}
 
-  constructor(alpha = 1.0) {
+export class AlphaFilter extends Filter {
+  constructor(options: AlphaFilterOptions) {
+    super(options);
     this.shader = new g.ShaderProgram({
       fragmentShader,
       uniforms: {
         uAlpha: {
           type: "float",
-          value: alpha
+          value: "alpha" in options ? options.alpha : 1.0
         }
       }
     });
-  }
-
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
   }
 
   set alpha(value) {

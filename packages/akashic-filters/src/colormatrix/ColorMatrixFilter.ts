@@ -24,14 +24,15 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi.js/blob/v4.7.3/src/filters/colormatrix/ColorMatrixFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 import {colorMatrix} from "./colorMatrix";
 
-export class ColorMatrixFilter implements Filter {
+export class ColorMatrixFilter extends Filter {
   private m: number[];
   private uniforms: {[key: string]: g.ShaderUniform};
 
-  constructor() {
+  constructor(param: FilterParameterObject) {
+    super(param);
     this.m = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];
     this.uniforms = {
       uAlpha: {
@@ -42,11 +43,11 @@ export class ColorMatrixFilter implements Filter {
   }
 
   apply(renderer: g.Renderer): void {
-    const shader = new g.ShaderProgram({
+    this.shader = new g.ShaderProgram({
       fragmentShader: colorMatrix(this.m.map(n => new Number(n).toFixed(16))),
       uniforms: this.uniforms
     });
-    renderer.setShaderProgram(shader);
+    super.apply(renderer);
   }
 
   set alpha(value) {

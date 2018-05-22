@@ -20,7 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi.js/blob/v4.7.3/src/filters/emboss/EmbossFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
 precision mediump float;
@@ -47,19 +47,15 @@ void main(void)
 	gl_FragColor = vec4(color.rgb * alpha, alpha);
 }`;
 
-export interface EmbossFilterOptions {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface EmbossFilterOptions extends FilterParameterObject {
   strength?: number;
 }
 
-export class EmbossFilter implements Filter {
-  private shader: g.ShaderProgram;
+export class EmbossFilter extends Filter {
   private filterArea: Float32Array;
 
   constructor(options: EmbossFilterOptions) {
+    super(options);
     this.filterArea = new Float32Array(4);
     this.move(options.x, options.y);
     this.resize(options.width, options.height);
@@ -78,10 +74,6 @@ export class EmbossFilter implements Filter {
     });
   }
 
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
-  }
-
   get strength() {
     return this.shader.uniforms.strength.value;
   }
@@ -91,11 +83,13 @@ export class EmbossFilter implements Filter {
   }
 
   move(x: number, y: number) {
+    super.move(x, y);
     this.filterArea[2] = x;
     this.filterArea[3] = y;
   }
 
   resize(width: number, height: number) {
+    super.resize(width, height);
     this.filterArea[0] = width;
     this.filterArea[1] = height;
   }

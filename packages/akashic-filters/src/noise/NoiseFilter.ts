@@ -20,7 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi.js/blob/v4.7.3/src/filters/noise/NoiseFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
 precision highp float;
@@ -55,27 +55,27 @@ void main() {
   gl_FragColor = color;
 }`;
 
-export class NoiseFilter implements Filter {
-  private shader: g.ShaderProgram;
+export interface NoiseFilterOptions extends FilterParameterObject {
+  noise?: number;
+  seed?: number;
+}
 
-  constructor(noise = 0.5, seed = Math.random()) {
+export class NoiseFilter extends Filter {
+  constructor(options: NoiseFilterOptions) {
+    super(options);
     this.shader = new g.ShaderProgram({
       fragmentShader,
       uniforms: {
         uNoise: {
           type: "float",
-          value: noise
+          value: "noise" in options ? options.noise : 0.5
         },
         uSeed: {
           type: "float",
-          value: seed
+          value: "seed" in options ? options.seed : Math.random()
         }
       }
     });
-  }
-
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
   }
 
   set noise(value) {

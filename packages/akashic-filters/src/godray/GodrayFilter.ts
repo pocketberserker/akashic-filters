@@ -20,7 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi-filters/blob/v2.6.1/filters/godray/src/GodrayFilter.js
 
-import {Filter} from "../Filter";
+import {Filter, FilterParameterObject} from "../Filter";
 
 const perlin = `vec3 mod289(vec3 x)
 {
@@ -178,11 +178,7 @@ class Point {
   }
 }
 
-export interface GodrayFilterOptions {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface GodrayFilterOptions extends FilterParameterObject {
   angle?: number;
   gain?: number;
   lacunarity?: number;
@@ -191,8 +187,7 @@ export interface GodrayFilterOptions {
   center?: number[];
 }
 
-export class GodrayFilter implements Filter {
-  private shader: g.ShaderProgram;
+export class GodrayFilter extends Filter {
   private dimensions: Float32Array;
   private filterArea: Float32Array;
   private angleLight: Point;
@@ -201,6 +196,7 @@ export class GodrayFilter implements Filter {
   private center: Float32Array;
 
   constructor(options: GodrayFilterOptions) {
+    super(options);
     this.dimensions = new Float32Array(2);
     this.filterArea = new Float32Array(4);
     this.angleLight = new Point();
@@ -246,17 +242,13 @@ export class GodrayFilter implements Filter {
     });
     this.move(options.x, options.y);
     this.resize(options.width, options.height);
-    this.angle = "angle" in options ? options.angle : 30;
+    this.lightAngle = "angle" in options ? options.angle : 30;
   }
 
-  apply(renderer: g.Renderer): void {
-    renderer.setShaderProgram(this.shader);
-  }
-
-  get angle() {
+  get lightAngle() {
     return this._angle;
   }
-  set angle(value) {
+  set lightAngle(value) {
     this._angle = value;
 
     const radians = value * DEG_TO_RAD;
@@ -290,11 +282,13 @@ export class GodrayFilter implements Filter {
   }
 
   move(x: number, y: number) {
+    super.move(x, y);
     this.filterArea[2] = x;
     this.filterArea[3] = y;
   }
 
   resize(width: number, height: number) {
+    super.resize(width, height);
     this.dimensions[0] = this.filterArea[0] = width;
     this.dimensions[1] = this.filterArea[1] = height;
     this.shader.uniforms.aspect.value = height / width;
