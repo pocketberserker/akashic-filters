@@ -2,10 +2,11 @@ import * as filters from "@pocketberserker/akashic-filters";
 
 module.exports = () => {
   const scene = new g.Scene({game: g.game});
+  const width = g.game.width / 3;
   scene.loaded.add(() => {
     const left = new filters.FilterContainer({
       scene,
-      width: g.game.width / 2,
+      width: g.game.width,
       height: g.game.height
     });
     const sepia = new filters.ColorMatrixFilter();
@@ -16,7 +17,7 @@ module.exports = () => {
     const black = new g.FilledRect({
       scene: scene,
       cssColor: "black",
-      width: g.game.width / 2,
+      width,
       height: g.game.height
     });
     left.append(black);
@@ -41,19 +42,41 @@ module.exports = () => {
     });
     left.append(blue);
 
-    left.invalidate();
+    const center = new filters.FilterContainer({
+      scene,
+      x: g.game.width / 3,
+      y: 0,
+      width,
+      height: g.game.height
+    });
+    const ray = new filters.GodrayFilter({
+      x: center.x,
+      y: center.y,
+      width: center.width,
+      height: center.height
+    });
+    center.filters = [ray];
+    scene.append(center);
+
+    const green = new g.FilledRect({
+      scene,
+      cssColor: "green",
+      width: center.width,
+      height: center.height
+    });
+    center.append(green);
 
     const right = new filters.FilterContainer({
       scene,
-      x: g.game.width / 2,
+      x: g.game.width / 3 * 2,
       y: 0,
-      width: g.game.width / 2,
+      width,
       height: g.game.height
     });
     const film = new filters.OldFilmFilter({
       x: right.x,
       y: right.y,
-      width: right.width / 2,
+      width: right.width,
       height: right.height,
       vignetting: 0.1
     });
@@ -68,17 +91,19 @@ module.exports = () => {
     });
     right.append(white);
 
-    const green = new g.FilledRect({
+    const yellow = new g.FilledRect({
       scene,
-      cssColor: "green",
+      cssColor: "yellow",
       x: right.width / 2 - 16,
       y: right.height / 2 - 16,
       width: 32,
       height: 32
     });
-    right.append(green);
+    right.append(yellow);
 
     scene.update.add(() => {
+      ray.time = g.game.age;
+      center.invalidate();
       film.seed = g.game.random.get(0, 100) / 100;
       right.invalidate();
     });
