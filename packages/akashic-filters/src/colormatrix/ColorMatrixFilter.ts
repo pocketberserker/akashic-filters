@@ -28,34 +28,29 @@ import {Filter, FilterParameterObject} from "../Filter";
 import {colorMatrix} from "./colorMatrix";
 
 export class ColorMatrixFilter extends Filter {
-  private m: number[];
-  private uniforms: {[key: string]: g.ShaderUniform};
-
   constructor(param: FilterParameterObject) {
     super(param);
-    this.m = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];
-    this.uniforms = {
-      uAlpha: {
-        type: "float",
-        value: 1
-      }
-    };
-  }
-
-  apply(renderer: g.Renderer): void {
     this.shader = new g.ShaderProgram({
-      fragmentShader: colorMatrix(this.m.map(n => new Number(n).toFixed(16))),
-      uniforms: this.uniforms
+      fragmentShader: colorMatrix,
+      uniforms: {
+        uAlpha: {
+          type: "float",
+          value: 1
+        },
+        m: {
+          type: "float",
+          value: new Float32Array([1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0])
+        }
+      }
     });
-    super.apply(renderer);
   }
 
   set alpha(value) {
-    this.uniforms.uAlpha.value = value;
+    this.shader.uniforms.uAlpha.value = value;
   }
 
   get alpha() {
-    return this.uniforms.uAlpha.value;
+    return this.shader.uniforms.uAlpha.value;
   }
 
   brightness(b: number, multiply?: boolean) {
@@ -77,7 +72,7 @@ export class ColorMatrixFilter extends Filter {
   }
 
   hue(rotation?: number, multiply?: boolean) {
-    rotation = (rotation || 0) / 180 * Math.PI;
+    rotation = ((rotation || 0) / 180) * Math.PI;
 
     const cosR = Math.cos(rotation);
     const sinR = Math.sin(rotation);
@@ -124,7 +119,7 @@ export class ColorMatrixFilter extends Filter {
   }
 
   saturate(amount = 0, multiply?: boolean) {
-    const x = amount * 2 / 3 + 1;
+    const x = (amount * 2) / 3 + 1;
     const y = (x - 1) * -0.5;
 
     const matrix = [x, y, y, 0, 0, y, x, y, 0, 0, y, y, x, 0, 0, 0, 0, 0, 1, 0];
@@ -422,21 +417,21 @@ export class ColorMatrixFilter extends Filter {
   }
 
   set matrix(value: number[]) {
-    this.m = value;
+    this.shader.uniforms.m.value = new Float32Array(value);
   }
 
   private loadMatrix(matrix: number[], multiply = false) {
-    let newMatrix = matrix;
+    let newMatrix = new Float32Array(matrix);
 
     if (multiply) {
-      this.multiply(newMatrix, this.m, matrix);
+      this.multiply(newMatrix, this.shader.uniforms.m.value as Float32Array, new Float32Array(matrix));
       newMatrix = this.colorMatrix(newMatrix);
     }
 
-    this.m = newMatrix;
+    (this.shader.uniforms.m.value as Float32Array).set(newMatrix);
   }
 
-  private multiply(out: number[], a: number[], b: number[]) {
+  private multiply(out: Float32Array, a: Float32Array, b: Float32Array) {
     // Red Channel
     out[0] = a[0] * b[0] + a[1] * b[5] + a[2] * b[10] + a[3] * b[15];
     out[1] = a[0] * b[1] + a[1] * b[6] + a[2] * b[11] + a[3] * b[16];
@@ -468,7 +463,7 @@ export class ColorMatrixFilter extends Filter {
     return out;
   }
 
-  private colorMatrix(matrix: number[]) {
+  private colorMatrix(matrix: Float32Array) {
     // Create a Float32 Array and normalize the offset component to 0-1
     const m = matrix.slice();
 
