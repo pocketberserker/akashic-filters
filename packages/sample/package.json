@@ -9,7 +9,8 @@
     "bundle": "akashic export html -o ../../dist -M -b"
   },
   "dependencies": {
-    "@pocketberserker/akashic-filters": "^0.1.0"
+    "@pocketberserker/akashic-filters": "^0.1.0",
+    "@pocketberserker/akashic-random": "0.0.2"
   },
   "devDependencies": {
     "@akashic/akashic-cli": "1.5.28",

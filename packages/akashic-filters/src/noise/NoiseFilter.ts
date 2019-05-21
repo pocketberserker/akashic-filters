@@ -20,6 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi.js/blob/v4.7.3/src/filters/noise/NoiseFilter.js
 
+import {Random} from "@pocketberserker/akashic-random";
 import {Filter, FilterParameterObject} from "../Filter";
 
 const fragmentShader = `#version 100
@@ -63,6 +64,7 @@ export interface NoiseFilterOptions extends FilterParameterObject {
 export class NoiseFilter extends Filter {
   constructor(options: NoiseFilterOptions) {
     super(options);
+    const random = new Random(options.scene.game.random);
     this.shader = new g.ShaderProgram({
       fragmentShader,
       uniforms: {
@@ -72,7 +74,7 @@ export class NoiseFilter extends Filter {
         },
         uSeed: {
           type: "float",
-          value: "seed" in options ? options.seed : Math.random()
+          value: "seed" in options ? options.seed : random.get()
         }
       }
     });

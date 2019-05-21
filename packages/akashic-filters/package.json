@@ -17,7 +17,9 @@
     "type": "git",
     "url": "pocketberserker/akashic-filters.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@pocketberserker/akashic-random": "0.0.2"
+  },
   "devDependencies": {
     "@akashic/akashic-engine": "2.4.14",
     "@types/node": "10.1.2",

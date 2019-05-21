@@ -28,9 +28,13 @@
 		"node_modules/@pocketberserker/akashic-filters/lib/godray/GodrayFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/Filter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
-		"node_modules/@pocketberserker/akashic-filters/lib/index.js"
+		"node_modules/@pocketberserker/akashic-filters/lib/index.js",
+		"node_modules/@pocketberserker/akashic-random/lib/AliasMethod.js",
+		"node_modules/@pocketberserker/akashic-random/lib/Random.js",
+		"node_modules/@pocketberserker/akashic-random/lib/index.js"
 	],
 	"moduleMainScripts": {
-		"@pocketberserker/akashic-filters": "node_modules/@pocketberserker/akashic-filters/lib/index.js"
+		"@pocketberserker/akashic-filters": "node_modules/@pocketberserker/akashic-filters/lib/index.js",
+		"@pocketberserker/akashic-random": "node_modules/@pocketberserker/akashic-random/lib/index.js"
 	}
 }
