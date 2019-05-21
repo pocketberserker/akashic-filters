@@ -10,9 +10,7 @@
     "prettier": "prettier --write '**/*.ts'",
     "sample:bundle": "cd packages/sample && npm run bundle",
     "sample:publish": "gh-pages -d ./dist -m \"Update $(date +%Y-%m-%d:%H:%M:%s)\"",
-    "start": "cd packages/sample && npm start",
-    "precommit": "lint-staged",
-    "postcommit": "git reset"
+    "start": "cd packages/sample && npm start"
   },
   "author": "pocketberserker",
   "license": "MIT",
@@ -21,11 +19,11 @@
     "url": "https://github.com/pocketberserker/alashic-filters.git"
   },
   "devDependencies": {
-    "gh-pages": "1.1.0",
-    "husky": "0.14.3",
-    "lerna": "2.11.0",
-    "lint-staged": "7.1.1",
-    "prettier": "1.12.1"
+    "gh-pages": "2.0.1",
+    "husky": "2.3.0",
+    "lerna": "3.14.1",
+    "lint-staged": "8.1.7",
+    "prettier": "1.17.1"
   },
   "prettier": {
     "printWidth": 120,
@@ -36,5 +34,11 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "git reset",
+      "pre-commit": "lint-staged"
+    }
   }
 }
