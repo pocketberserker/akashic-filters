@@ -11,15 +11,15 @@ module.exports = () => {
       width,
       height: g.game.height
     });
-    const sepia = new filters.ColorMatrixFilter({
+    const colorMatrix = new filters.ColorMatrixFilter({
       scene,
       x: left.x,
       y: left.y,
       width: left.width / 2,
       height: left.height
     });
-    sepia.sepia();
-    left.filters = [sepia];
+    colorMatrix.sepia();
+    left.filters = [colorMatrix];
     scene.append(left);
 
     const black = new g.FilledRect({
@@ -77,7 +77,7 @@ module.exports = () => {
 
     const right = new filters.FilterContainer({
       scene,
-      x: g.game.width / 3 * 2,
+      x: (g.game.width / 3) * 2,
       y: 0,
       width,
       height: g.game.height
