@@ -20,6 +20,7 @@ THE SOFTWARE.
 
 // https://github.com/pixijs/pixi-filters/blob/v2.6.1/filters/godray/src/GodrayFilter.js
 
+import Point from "../Point";
 import {Filter, FilterParameterObject} from "../Filter";
 
 const perlin = `vec3 mod289(vec3 x)
@@ -163,20 +164,6 @@ void main(void) {
 }`;
 
 const DEG_TO_RAD = Math.PI / 180;
-
-class Point {
-  x: number;
-  y: number;
-
-  constructor(x = 0, y = 0) {
-    this.x = x;
-    this.y = y;
-  }
-
-  toVec2() {
-    return new Float32Array([this.x, this.y]);
-  }
-}
 
 export interface GodrayFilterOptions extends FilterParameterObject {
   angle?: number;

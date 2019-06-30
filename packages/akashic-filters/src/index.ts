@@ -1,3 +1,4 @@
+export {default as Point} from "./Point";
 export * from "./Filter";
 export * from "./FilterContainer";
 export * from "./alpha/AlphaFilter";
@@ -10,3 +11,4 @@ export * from "./zoom-blur/ZoomBlurFilter";
 export * from "./godray/GodrayFilter";
 export * from "./ascii/AsciiFilter";
 export * from "./crt/CRTFilter";
+export * from "./twist/TwistFilter";
