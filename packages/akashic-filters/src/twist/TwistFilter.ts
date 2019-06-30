@@ -144,7 +144,7 @@ export class TwistFilter extends Filter {
   }
 
   get offset(): Point {
-    const value = this.shader.uniforms.angle.value as Float32Array;
+    const value = this.shader.uniforms.offset.value as Float32Array;
     return new Point(value[0], value[1]);
   }
 
