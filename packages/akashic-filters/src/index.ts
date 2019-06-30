@@ -9,3 +9,4 @@ export * from "./emboss/EmbossFilter";
 export * from "./zoom-blur/ZoomBlurFilter";
 export * from "./godray/GodrayFilter";
 export * from "./ascii/AsciiFilter";
+export * from "./crt/CRTFilter";
