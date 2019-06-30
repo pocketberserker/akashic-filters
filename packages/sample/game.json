@@ -26,6 +26,7 @@
 		"node_modules/@pocketberserker/akashic-filters/lib/emboss/EmbossFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/zoom-blur/ZoomBlurFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/godray/GodrayFilter.js",
+		"node_modules/@pocketberserker/akashic-filters/lib/ascii/AsciiFilter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/Filter.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/FilterContainer.js",
 		"node_modules/@pocketberserker/akashic-filters/lib/index.js",

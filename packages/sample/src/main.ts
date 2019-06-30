@@ -15,7 +15,7 @@ module.exports = () => {
       scene,
       x: left.x,
       y: left.y,
-      width: left.width / 2,
+      width: left.width / 3,
       height: left.height
     });
     colorMatrix.sepia();
