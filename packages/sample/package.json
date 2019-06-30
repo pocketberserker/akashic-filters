@@ -13,10 +13,10 @@
     "@pocketberserker/akashic-random": "0.0.2"
   },
   "devDependencies": {
-    "@akashic/akashic-cli": "1.5.28",
+    "@akashic/akashic-cli": "1.7.1",
     "@akashic/akashic-engine": "2.4.14",
-    "@akashic/akashic-sandbox": "0.13.61",
+    "@akashic/akashic-sandbox": "0.14.0",
     "@types/node": "10.1.2",
-    "typescript": "3.4.5"
+    "typescript": "3.5.2"
   }
 }
