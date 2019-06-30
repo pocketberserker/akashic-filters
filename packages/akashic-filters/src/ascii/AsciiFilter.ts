@@ -134,7 +134,19 @@ export class AsciiFilter extends Filter {
     this.shader.uniforms.pixelSize.value = value;
   }
 
-  get size() {
-    return this.shader.uniforms.pixelSize.value;
+  get size(): number {
+    return this.shader.uniforms.pixelSize.value as any;
+  }
+
+  move(x: number, y: number) {
+    super.move(x, y);
+    this.filterArea[2] = x;
+    this.filterArea[3] = y;
+  }
+
+  resize(width: number, height: number) {
+    super.resize(width, height);
+    this.filterArea[0] = width;
+    this.filterArea[1] = height;
   }
 }
